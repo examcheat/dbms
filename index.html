@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SQL Queries Q4–Q20</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#312e81 100%);
+    color:#e2e8f0;min-height:100vh;padding:40px 20px;
+  }
+  .container{max-width:1100px;margin:0 auto}
+  header{text-align:center;margin-bottom:40px}
+  h1{
+    font-size:2.5rem;background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);
+    -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px;
+  }
+  header p{color:#94a3b8}
+  .toolbar{display:flex;justify-content:center;margin-bottom:30px}
+  .copy-all{
+    background:linear-gradient(90deg,#6366f1,#a855f7);color:white;border:none;
+    padding:12px 28px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;
+    box-shadow:0 8px 20px rgba(99,102,241,.4);transition:transform .2s;
+  }
+  .copy-all:hover{transform:translateY(-2px)}
+  .block{
+    background:rgba(15,23,42,.7);backdrop-filter:blur(10px);
+    border:1px solid rgba(148,163,184,.2);border-radius:14px;padding:24px;
+    margin-bottom:24px;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  }
+  .block-header{
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;
+    flex-wrap:wrap;gap:10px;
+  }
+  .block-title{font-size:1.15rem;color:#a78bfa;font-weight:600}
+  .copy-btn{
+    background:rgba(99,102,241,.2);color:#c7d2fe;border:1px solid rgba(99,102,241,.5);
+    padding:8px 16px;border-radius:8px;font-size:.9rem;cursor:pointer;
+    transition:all .2s;font-weight:500;
+  }
+  .copy-btn:hover{background:rgba(99,102,241,.4)}
+  .copy-btn.copied{background:#10b981;color:white;border-color:#10b981}
+  pre{
+    background:#0a0f1c;border:1px solid rgba(148,163,184,.15);border-radius:8px;
+    padding:16px;overflow-x:auto;font-family:"Fira Code","Courier New",monospace;
+    font-size:.9rem;line-height:1.6;color:#e2e8f0;white-space:pre-wrap;
+  }
+  .toast{
+    position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);
+    background:#10b981;color:white;padding:12px 24px;border-radius:10px;
+    box-shadow:0 10px 30px rgba(16,185,129,.4);transition:transform .3s;z-index:1000;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>SQL Queries Collection</h1>
+    <p>Questions 4 through 20 — click any Copy button to copy the code</p>
+  </header>
+  <div class="toolbar">
+    <button class="copy-all" id="copyAllBtn">📋 Copy All Queries</button>
+  </div>
+
+  <div class="block" data-id="q4">
+    <div class="block-header"><div class="block-title">Q4)<h6>(Create table Student: RollNo (PK), Name, Class, Marks.
+Then add a column named Email (VARCHAR) and Rename the ‘Name’
+column to S_Name.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>CREATE DATABASE Practical;
+Use Practical;
+
+create table Student(
+RollNo INT PRIMARY KEY,
+Name VARCHAR(50),
+Class VARCHAR(50),
+Marks INT );
+
+ALTER TABLE Student RENAME COLUMN Name TO S_Name;
+
+ALTER TABLE Student ADD COLUMN Email VARCHAR(50);
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q5">
+    <div class="block-header"><div class="block-title">Q5)<h6>(Create table Department: DeptID (PK), DeptName, NumberOfEmployees.
+Then change number of characters accepted for DeptName, and Drop the
+column NumberOfEmployees.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>create table Department(
+DeptID INT PRIMARY KEY,
+DeptName VARCHAR(50),
+NumberofEmployees Int);
+
+ALTER TABLE Department MODIFY COLUMN DeptName VARCHAR(100);
+
+ALTER TABLE Department drop COLUMN NumberofEmployees;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q6">
+    <div class="block-header"><div class="block-title">Q6)<h6>(Create table Product: ProductID (PK), ProductName, Price.
+Insert 5 records with various constraint checks. Modify the Price of any one
+record.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>create table Product(
+ProductID INT PRIMARY KEY,
+productName VARCHAR(50),
+Price INT CHECK (Price>0));
+
+
+Insert  Into Product values
+(1, "Pen", 20),
+(2, "Scale", 30),
+(3, "Notebook", 40),
+(4, "Pencil", 10),
+(5, "Eraser", 10);
+
+Update Product Set Price=5 Where ProductName="Eraser";
+
+Select * From Product;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q7">
+    <div class="block-header"><div class="block-title">Q7) <h6>(Create table Employee: ID (PK), Name, Salary, Dept.
+
+Insert 4 records with various constraint checks and increase the salary of
+employees in HR department by 1000. Display records in ascending order of
+salary.)</h6>                                                        </div><button class="copy-btn">Copy</button></div>
+<pre><code>create table employee(
+Id int primary key,
+Name varchar(50),
+Salary Decimal(10,2) Check (Salary > 0),
+Dept Varchar(50));
+
+
+Insert into employee values
+(1, "Rutvik", 50000000.00, "SR.Developer"),
+(2,'Amit',15000,'HR'),
+(3,'Neha',17000,'HR');
+
+update employee Set Salary=Salary+1000
+where Dept='HR';
+
+Select * From employee Order by Salary Asc;
+
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q8">
+    <div class="block-header"><div class="block-title">Q8)<h6>(Table: Employee (ID, Name, Salary, Department). Insert 5 records with
+various constraint checks. Delete records where Salary < 12000. Display
+number of employees in each department.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT Dept, COUNT(*) AS TotalEmployees
+FROM employee
+GROUP BY Dept;
+
+
+DELETE FROM Employee
+WHERE Salary < 12000;</code></pre>
+  </div>
+
+  <div class="block" data-id="q9">
+    <div class="block-header"><div class="block-title">Q9)<h6>(Table: Employee (ID, Name, Dept). Insert 5 records with various constraint
+checks. Update Dept from ‘Sales’ to ‘HR’ where ID = 102.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>update employee
+set dept='HR'
+where Id=1 and dept='SR.Developer';
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q10">
+    <div class="block-header"><div class="block-title">Q10)<h6>(Table: Employee (ID, Name, Salary). Insert 5 records with various constraint
+checks. Display Name and Salary where Salary between 15000 and 30000.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT Name, Salary
+FROM Employee
+WHERE Salary BETWEEN 15000 AND 30000;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q11">
+    <div class="block-header"><div class="block-title">Q11)<h6>(Table: Student (RollNo, Name). Insert 5 records with various constraint
+checks. Display students whose names start with ‘A’. Display students whose
+name has “I” as the second character.)</h6></h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>CREATE TABLE Employee (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Salary INT CHECK (Salary > 0),
+    Dept VARCHAR(50)
+);
+
+
+INSERT INTO Employee VALUES
+(1, 'Amit', 'amit@yahoo.com', 30000, 'IT'),
+(2, 'Riya', 'riya@gmail.com', 40000, 'HR'),
+(3, 'Kiran', 'kiran@yahoo.com', 35000, 'IT'),
+(4, 'Anjali', 'anjali@outlook.com', 45000, 'Finance'),
+(5, 'Nitin', 'nitin@yahoo.com', 50000, 'HR');
+
+SELECT * FROM Student 
+WHERE Name LIKE 'A%'; 
+
+SELECT * FROM Student 
+WHERE Name LIKE '_I%';
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q12">
+    <div class="block-header"><div class="block-title">Q12)<h6>(Table: Employee (ID, Name, Email). Insert 5 records with various constraint
+checks. Find employees whose email ends with ‘@yahoo.com’.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT * FROM Employee 
+WHERE Email LIKE '%@yahoo.com';</code></pre>
+  </div>
+
+  <div class="block" data-id="q13">
+    <div class="block-header"><div class="block-title">Q13)<h6>(Table: Employee (ID, Name, Salary). Insert 5 records with various constraint
+checks. Find total number of employees and average salary.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT COUNT(*) AS TotalEmployees, 
+AVG(Salary) AS AverageSalary 
+FROM Employee;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q14">
+    <div class="block-header"><div class="block-title">Q14)<h6>(Table: Employee (ID, Name, Salary). Insert 5 records with various constraint
+checks. Find maximum and minimum salary.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT MAX(Salary) AS MaximumSalary, 
+MIN(Salary) AS MinimumSalary 
+FROM Employee;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q15">
+    <div class="block-header"><div class="block-title">Q15)<h6>(Table: Employee (ID, Name, Dept). Insert 5 records with various constraint
+checks. Count number of employees in each department.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>CREATE TABLE Course (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(50)
+);
+
+CREATE TABLE Student (
+    RollNo INT PRIMARY KEY,
+    Name VARCHAR(50),
+    CourseID INT,
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+
+INSERT INTO Course VALUES
+(1, 'DBMS'),
+(2, 'Java'),
+(3, 'Python');
+
+INSERT INTO Student VALUES
+(1, 'Amit', 1),
+(2, 'Riya', 2),
+(3, 'Kiran', 1),
+(4, 'Anjali', 3);
+
+
+SELECT Dept, COUNT(*) AS EmployeeCount 
+FROM Employee 
+GROUP BY Dept;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q16">
+    <div class="block-header"><div class="block-title">Q16)<h6>(Join Operation (INNER JOIN):
+Tables: • Student (StudentID PK, Name, CourseID FK) • Course (CourseID PK,
+CourseName)
+Instructions:
+• Use INNER JOIN on CourseID
+• Display Student Name with Course Name)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>CREATE TABLE Department (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50)
+);
+
+
+CREATE TABLE Employee (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    DeptID INT,
+    Salary INT,
+    Email VARCHAR(100),
+    FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+);
+
+INSERT INTO Department VALUES
+(1, 'IT'),
+(2, 'HR'),
+(3, 'Finance');
+
+INSERT INTO Employee VALUES
+(1, 'Amit', 1, 30000, 'amit@yahoo.com'),
+(2, 'Riya', 2, 40000, 'riya@gmail.com'),
+(3, 'Kiran', 1, 35000, 'kiran@yahoo.com'),
+(4, 'Anjali', 3, 45000, 'anjali@outlook.com'),
+(5, 'Nitin', NULL, 50000, 'nitin@yahoo.com');
+
+
+
+
+SELECT Student.Name, Course.CourseName 
+FROM Student 
+INNER JOIN Course 
+ON Student.CourseID = Course.CourseID;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q17">
+    <div class="block-header"><div class="block-title">Q17)<h6>(Join Operation (LEFT JOIN):
+Tables: • Employee (EmpID PK, Name, DeptID FK) • Department (DeptID PK,
+DeptName)
+Instructions:
+• Use LEFT JOIN on DeptID
+• Display all employees even if department is NULL)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT Employee.Name, Department.DeptName 
+FROM Employee 
+LEFT JOIN Department 
+ON Employee.DeptID = Department.DeptID;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q18">
+    <div class="block-header"><div class="block-title">Q18)<h6>(Nested Query:
+Table: Employee (ID, Name, Salary)
+
+Task: • Find employees whose salary is greater than average salary)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>SELECT Name, Salary 
+FROM Employee 
+WHERE Salary > ( 
+SELECT AVG(Salary) 
+FROM Employee 
+);</code></pre>
+  </div>
+
+  <div class="block" data-id="q19">
+    <div class="block-header"><div class="block-title">Q19)<h6>(DCL Commands:
+Table: Employee (ID, Name, Salary)
+Task:
+• Create a user (e.g., user1)
+• Grant INSERT and SELECT permissions on Employee table
+• Revoke the INSERT permission)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>CREATE USER user1 IDENTIFIED BY 'password';
+
+GRANT INSERT, SELECT 
+ON Employee 
+TO user1; 
+
+REVOKE INSERT 
+ON Employee 
+FROM user1;
+</code></pre>
+  </div>
+
+  <div class="block" data-id="q20">
+    <div class="block-header"><div class="block-title">Q20)<h6>(Stored Procedure using INOUT parameter:
+Table: Employee (ID, Name, Dept, Salary)
+Task:
+• Create a procedure that takes Dept as input through some parameter
+• Displays average salary of all employees of that department using same
+parameter as output.)</h6></div><button class="copy-btn">Copy</button></div>
+<pre><code>DELIMITER $$ 
+
+CREATE PROCEDURE AvgSalaryByDept( 
+INOUT DeptName VARCHAR(20) 
+) 
+BEGIN 
+SELECT AVG(Salary) AS AverageSalary 
+FROM Employee 
+WHERE Dept = DeptName; 
+END $$ 
+
+DELIMITER ;</code></pre>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+  const toast = document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(()=>toast.classList.remove('show'),1800);
+  }
+  async function copyText(text){
+    try{
+      if(navigator.clipboard && window.isSecureContext){
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      }
+      return true;
+    }catch(e){ console.error(e); return false; }
+  }
+  document.querySelectorAll('.block').forEach(block=>{
+    const btn = block.querySelector('.copy-btn');
+    btn.addEventListener('click', async ()=>{
+      const title = block.querySelector('.block-title').textContent;
+      const code = block.querySelector('code').textContent;
+      const ok = await copyText(title + '\n' + code);
+      if(ok){
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        showToast('Copied to clipboard!');
+        setTimeout(()=>{ btn.textContent = orig; btn.classList.remove('copied'); },1500);
+      } else {
+        showToast('Copy failed');
+      }
+    });
+  });
+  document.getElementById('copyAllBtn').addEventListener('click', async ()=>{
+    const all = [...document.querySelectorAll('.block')].map(b=>{
+      return b.querySelector('.block-title').textContent + '\n' +
+             b.querySelector('code').textContent;
+    }).join('\n\n' + '='.repeat(60) + '\n\n');
+    const ok = await copyText(all);
+    showToast(ok ? 'All queries copied!' : 'Copy failed');
+  });
+</script>
+</body>
+</html>
